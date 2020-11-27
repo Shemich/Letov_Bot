@@ -54,6 +54,8 @@ public class PoemDataService {
         scan.close();
         fr.close();
         //return  messagesService.getReplyText(randomStr);
+        randomStr = randomStr + "\nКоличество стихов : " + arrayList.size();
+        randomStr = randomStr + "\nНомер стиха : " + (a-1);
         return randomStr;
     }
 }
