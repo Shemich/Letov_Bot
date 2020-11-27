@@ -37,7 +37,7 @@ public class UsersProfileDataService {
             return profileMongoRepository.findByChatId(chatId);
         } catch (IncorrectResultSizeDataAccessException e) {
             //e.printStackTrace();
-            System.out.println("!!!ERROR!!! " + e);
+            System.out.println("!!!!!!!!!!ERROR!!!!!!!!!! " + e);
             return null;
         }
     }

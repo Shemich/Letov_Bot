@@ -37,8 +37,8 @@ public class MainMenuService {
         KeyboardRow row2 = new KeyboardRow();
         KeyboardRow row3 = new KeyboardRow();
         row1.add(new KeyboardButton("Получить cлучайный стих"));
-        row2.add(new KeyboardButton("Добавить в избранное"));
-        row2.add(new KeyboardButton("Избранное"));
+        /*row2.add(new KeyboardButton("Добавить в избранное"));
+        row2.add(new KeyboardButton("Избранное"));*/
         row3.add(new KeyboardButton("Помощь"));
         keyboard.add(row1);
         keyboard.add(row2);

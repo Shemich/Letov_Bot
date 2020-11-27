@@ -13,8 +13,10 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.shemich.letovpoem_bot.LetovPoemBot;
 import ru.shemich.letovpoem_bot.cache.UserDataCache;
+import ru.shemich.letovpoem_bot.model.UserFavouriteData;
 import ru.shemich.letovpoem_bot.model.UserProfileData;
 import ru.shemich.letovpoem_bot.service.MainMenuService;
+import ru.shemich.letovpoem_bot.service.PoemDataService;
 import ru.shemich.letovpoem_bot.service.ReplyMessagesService;
 
 import java.io.BufferedWriter;
@@ -32,14 +34,16 @@ public class TelegramFacade {
     private MainMenuService mainMenuService;
     private LetovPoemBot letovPoemBot;
     private ReplyMessagesService messagesService;
+    private PoemDataService poemDataService;
 
     public TelegramFacade(BotStateContext botStateContext, UserDataCache userDataCache, MainMenuService mainMenuService,
-                          @Lazy LetovPoemBot letovPoemBot, ReplyMessagesService messagesService) {
+                          @Lazy LetovPoemBot letovPoemBot, ReplyMessagesService messagesService, PoemDataService poemDataService) {
         this.botStateContext = botStateContext;
         this.userDataCache = userDataCache;
         this.mainMenuService = mainMenuService;
         this.letovPoemBot = letovPoemBot;
         this.messagesService = messagesService;
+        this.poemDataService = poemDataService;
     }
 
     public BotApiMethod<?> handleUpdate(Update update) {
@@ -80,13 +84,16 @@ public class TelegramFacade {
             case "Получить cлучайный стих":
                 botState = BotState.SHOW_RANDOM_POEM;
                 break;
-            case "Добавить в избранное":
-                botState = BotState.SHOW_USER_PROFILE;
+           /* case "Добавить в избранное":
+                botState = BotState.ADD_TO_FAVOURITE;
+                *//*UserFavouriteData userFavouriteData = userDataCache.getUserFavouriteData(userId);
+                userFavouriteData.setPoems("poem");
+                userDataCache.saveUserFavouriteData(userId, userFavouriteData);*//*
                 break;
             case "Избранное":
-                letovPoemBot.sendDocument(chatId, "Ваша анкета", getUsersProfile(userId));
-                botState = BotState.SHOW_USER_PROFILE;
-                break;
+                //letovPoemBot.sendDocument(chatId, "Ваше избранное", getUsersProfile(userId));
+                botState = BotState.SHOW_USER_FAVOURITE;
+                break;*/
             case "Помощь":
                 botState = BotState.SHOW_HELP_MENU;
                 break;
@@ -111,12 +118,12 @@ public class TelegramFacade {
 
         //From Destiny choose buttons
         if (buttonQuery.getData().equals("buttonYes")) {
-            callBackAnswer = new SendMessage(chatId, "Как тебя зовут ?");
-            userDataCache.setUsersCurrentBotState(userId, BotState.ASK_AGE);
+            userDataCache.setUsersCurrentBotState(userId, BotState.SHOW_RANDOM_POEM);
+            callBackAnswer = mainMenuService.getMainMenuMessage(chatId, "Воспользуйтесь главным меню");
         } else if (buttonQuery.getData().equals("buttonNo")) {
-            callBackAnswer = sendAnswerCallbackQuery("Возвращайся, когда будешь готов", false, buttonQuery);
+            callBackAnswer = sendAnswerCallbackQuery("Возвращайтесь, когда будете готовы", true, buttonQuery);
         } else if (buttonQuery.getData().equals("buttonIwillThink")) {
-            callBackAnswer = sendAnswerCallbackQuery("Данная кнопка не поддерживается", true, buttonQuery);
+            callBackAnswer = sendAnswerCallbackQuery("Возвращайтесь, когда будете готовы", true, buttonQuery);
         }
 
         //From Gender choose buttons
@@ -133,7 +140,8 @@ public class TelegramFacade {
             userDataCache.setUsersCurrentBotState(userId, BotState.ASK_COLOR);
             callBackAnswer = new SendMessage(chatId, "Твоя любимая цифра");
 
-        } else {
+        }
+         else {
             userDataCache.setUsersCurrentBotState(userId, BotState.SHOW_MAIN_MENU);
         }
 
