@@ -27,11 +27,9 @@ public class PoemDataService {
     }
 
     public String getPoemData() throws IOException {
-        //String fileName = "poem.txt";
-        Resource resource = new ClassPathResource("static/docs/poem.txt");
-        InputStream dbAsStream = resource.getInputStream();
-        //File textFile = ResourceUtils.getFile("classpath:" + "static/docs/poem.txt");
-        FileReader fr = new FileReader(String.valueOf(dbAsStream));
+        String textPath = "static/docs/poem.txt";
+        File textFile = ResourceUtils.getFile("classpath:" + textPath);
+        FileReader fr = new FileReader(textFile);
         Scanner scan = new Scanner(fr);
         ArrayList<String> arrayList = new ArrayList<>();
         String text = "* * *";
