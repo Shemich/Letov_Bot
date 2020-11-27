@@ -3,11 +3,10 @@ package ru.shemich.letovpoem_bot.service;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -29,8 +28,10 @@ public class PoemDataService {
 
     public String getPoemData() throws IOException {
         //String fileName = "poem.txt";
-        File textFile = ResourceUtils.getFile("classpath:" + "static/docs/poem.txt");
-        FileReader fr = new FileReader(textFile);
+        Resource resource = new ClassPathResource("static/docs/poem.txt");
+        InputStream dbAsStream = resource.getInputStream();
+        //File textFile = ResourceUtils.getFile("classpath:" + "static/docs/poem.txt");
+        FileReader fr = new FileReader(String.valueOf(dbAsStream));
         Scanner scan = new Scanner(fr);
         ArrayList<String> arrayList = new ArrayList<>();
         String text = "* * *";
