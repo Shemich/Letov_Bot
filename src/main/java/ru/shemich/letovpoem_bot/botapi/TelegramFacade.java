@@ -3,6 +3,8 @@ package ru.shemich.letovpoem_bot.botapi;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
@@ -22,10 +24,14 @@ import ru.shemich.letovpoem_bot.service.ReplyMessagesService;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
  */
+
+
 @Component
 @Slf4j
 public class TelegramFacade {
@@ -159,6 +165,7 @@ public class TelegramFacade {
         answerCallbackQuery.setText(text);
         return answerCallbackQuery;
     }
+
 
     @SneakyThrows
     public File getUsersProfile(int userId) {
