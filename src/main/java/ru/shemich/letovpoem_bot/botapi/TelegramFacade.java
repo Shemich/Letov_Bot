@@ -77,8 +77,8 @@ public class TelegramFacade {
                 botState = BotState.ASK_START;
                 letovPoemBot.sendPhoto(chatId, messagesService.getReplyText("reply.hello"), "static/images/letovpoem_logo.jpg");
                 break;
-            case "Получить предсказание":
-                botState = BotState.FILLING_PROFILE;
+            case "Получить cлучайный стих":
+                botState = BotState.SHOW_RANDOM_POEM;
                 break;
             case "Моя анкета":
                 botState = BotState.SHOW_USER_PROFILE;
