@@ -12,6 +12,7 @@ public enum BotState {
     ASK_NUMBER,
     ASK_MOVIE,
     ASK_SONG,
+    ADD_TO_FAVOURITE,
     FILLING_PROFILE,
     PROFILE_FILLED,
     SHOW_RANDOM_POEM,

@@ -70,7 +70,7 @@ public class FillingProfileHandler implements InputMessageHandler {
 
         SendMessage replyToUser = null;
 
-        if (botState.equals(BotState.ASK_NAME)) {
+       /* if (botState.equals(BotState.ASK_NAME)) {
             replyToUser = messagesService.getReplyMessage(chatId, "reply.askName");
             userDataCache.setUsersCurrentBotState(userId, BotState.ASK_AGE);
         }
@@ -109,7 +109,13 @@ public class FillingProfileHandler implements InputMessageHandler {
             replyToUser = messagesService.getReplyMessage(chatId, "reply.askSong");
             profileData.setMovie(usersAnswer);
             userDataCache.setUsersCurrentBotState(userId, BotState.PROFILE_FILLED);
-        }
+        }*/
+/*
+        if (botState.equals(BotState.ADD_TO_FAVOURITE)) {
+            replyToUser.setReplyMarkup(getYesOrNoButtonsMarkup());
+            profileData.setMovie(usersAnswer);
+            userDataCache.setUsersCurrentBotState(userId, BotState.SHOW_USER_FAVOURITE);
+        }*/
 
         if (botState.equals(BotState.PROFILE_FILLED)) {
             profileData.setSong(usersAnswer);
@@ -131,7 +137,7 @@ public class FillingProfileHandler implements InputMessageHandler {
             userDataCache.setUsersCurrentBotState(userId, BotState.SHOW_MAIN_MENU);
            String poemMessage = poemDataService.getPoemData();
            replyToUser = new SendMessage(chatId, poemMessage);
-            replyToUser.setParseMode("HTML");
+           replyToUser.setParseMode("HTML");
 
         }
         if (botState.equals(BotState.SHOW_USER_FAVOURITE)) {
@@ -150,7 +156,7 @@ public class FillingProfileHandler implements InputMessageHandler {
         return replyToUser;
     }
 
-    private InlineKeyboardMarkup getGenderButtonsMarkup() {
+    /*private InlineKeyboardMarkup getGenderButtonsMarkup() {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
         InlineKeyboardButton buttonGenderMan = new InlineKeyboardButton().setText("М");
         InlineKeyboardButton buttonGenderWoman = new InlineKeyboardButton().setText("Ж");
@@ -169,7 +175,7 @@ public class FillingProfileHandler implements InputMessageHandler {
         inlineKeyboardMarkup.setKeyboard(rowList);
 
         return inlineKeyboardMarkup;
-    }
+    }*/
 
 
 }

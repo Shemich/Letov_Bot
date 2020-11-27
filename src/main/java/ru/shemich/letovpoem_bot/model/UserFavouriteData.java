@@ -18,20 +18,12 @@ import java.io.Serializable;
 public class UserFavouriteData implements Serializable {
     @Id
     String id;
-    String name;
-    String gender;
-    String color;
-    String movie;
-    String song;
-    int age;
-    int number;
+    String[] poems = new String[405];
     long chatId;
 
 
     @Override
     public String toString() {
-        return String.format("Имя: %s%nВозраст: %d%nПол: %s%nЛюбимая цифра: %d%n" +
-                        "Цвет: %s%nФильм: %s%nПесня: %s%n", getName(), getAge(), getGender(), getNumber(),
-                getColor(), getMovie(), getSong());
+        return String.format("Стихи: %s%n", getPoems());
     }
 }

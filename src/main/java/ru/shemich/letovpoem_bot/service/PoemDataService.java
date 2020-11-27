@@ -33,19 +33,11 @@ public class PoemDataService {
             String s = scan.nextLine();
 
             if (s.contains("* * *")) { //ищем звезды для разделения текста. как конец стиха
-                //System.out.println(s);
                 text = text + "\n" + s;
                 arrayList.add(text);//добавялем весь текст до звезд + свми звезды
                 text = "";//обнуляем буфер текста
             } else {
-                //System.out.println(s);
                 text = text + "\n" + s;
-                /*
-                if (s != "") {
-                    text = text + "\n" + s;
-                }
-
-                 */
             }
         }
         int a = (int) (Math.random() * arrayList.size());
@@ -54,6 +46,7 @@ public class PoemDataService {
         scan.close();
         fr.close();
         //return  messagesService.getReplyText(randomStr);
+        int numberPoem = a;
         randomStr = randomStr + "\nКоличество стихов : " + arrayList.size();
         randomStr = randomStr + "\nНомер стиха : " + (a-1);
         return randomStr;
