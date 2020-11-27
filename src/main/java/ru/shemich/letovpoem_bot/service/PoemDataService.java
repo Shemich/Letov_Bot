@@ -36,9 +36,9 @@ public class PoemDataService {
         ClassPathResource classPathResource = new ClassPathResource("static/docs/poem.txt");
 
         InputStream inputStream = classPathResource.getInputStream();
-        File somethingFile = File.createTempFile("test", ".txt");
+        File textFile = File.createTempFile("textPoem", ".txt");
         try {
-            FileUtils.copyInputStreamToFile(inputStream, somethingFile);
+            FileUtils.copyInputStreamToFile(inputStream, textFile);
         } finally {
             IOUtils.closeQuietly(inputStream);
         }
@@ -54,7 +54,7 @@ public class PoemDataService {
 
         //String textPath = "static/docs/poem.txt";
         //File textFile = ResourceUtils.getFile("classpath:" + textPath);
-        FileReader fr = new FileReader(somethingFile);
+        FileReader fr = new FileReader(textFile);
         Scanner scan = new Scanner(fr);
         ArrayList<String> arrayList = new ArrayList<>();
         String text = "* * *";

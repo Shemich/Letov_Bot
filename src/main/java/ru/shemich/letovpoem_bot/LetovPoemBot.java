@@ -2,6 +2,9 @@ package ru.shemich.letovpoem_bot;
 
 
 import lombok.SneakyThrows;
+import org.apache.commons.io.FileUtils;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.ResourceUtils;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramWebhookBot;
@@ -13,6 +16,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 import ru.shemich.letovpoem_bot.botapi.TelegramFacade;
 
 import java.io.File;
+import java.io.InputStream;
 
 
 public class LetovPoemBot extends TelegramWebhookBot {
@@ -64,10 +68,19 @@ public class LetovPoemBot extends TelegramWebhookBot {
     }
 
     @SneakyThrows
-    public void sendPhoto(long chatId, String imageCaption, String imagePath) {
+    public void sendPhoto(long chatId, String imageCaption) {
         try {
-            File image = ResourceUtils.getFile("classpath:" + imagePath);
-            SendPhoto sendPhoto = new SendPhoto().setPhoto(image);
+            ClassPathResource classPathResource = new ClassPathResource("static/images/letovpoem_logo.jpg");
+
+            InputStream inputStream = classPathResource.getInputStream();
+            File imageFile = File.createTempFile("imagePoem", ".txt");
+            try {
+                FileUtils.copyInputStreamToFile(inputStream, imageFile);
+            } finally {
+                IOUtils.closeQuietly(inputStream);
+            }
+            /*File image = ResourceUtils.getFile("classpath:" + imagePath);*/
+            SendPhoto sendPhoto = new SendPhoto().setPhoto(imageFile);
             sendPhoto.setChatId(chatId);
             sendPhoto.setCaption(imageCaption);
             execute(sendPhoto);

@@ -85,7 +85,7 @@ public class TelegramFacade {
         switch (inputMsg) {
             case "/start":
                 botState = BotState.ASK_START;
-                letovPoemBot.sendPhoto(chatId, messagesService.getReplyText("reply.hello"), "static/images/letovpoem_logo.jpg");
+                letovPoemBot.sendPhoto(chatId, messagesService.getReplyText("reply.hello"));
                 break;
             case "Получить cлучайный стих":
                 botState = BotState.SHOW_RANDOM_POEM;
