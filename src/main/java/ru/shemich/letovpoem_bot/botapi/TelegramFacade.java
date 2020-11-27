@@ -81,11 +81,11 @@ public class TelegramFacade {
                 botState = BotState.SHOW_RANDOM_POEM;
                 break;
             case "Добавить в избранное":
-                botState = BotState.SHOW_USER_PROFILE;
+                botState = BotState.SHOW_USER_FAVOURITE;
                 break;
             case "Избранное":
-                letovPoemBot.sendDocument(chatId, "Ваша анкета", getUsersProfile(userId));
-                botState = BotState.SHOW_USER_PROFILE;
+                letovPoemBot.sendDocument(chatId, "Ваше избранное", getUsersProfile(userId));
+                botState = BotState.SHOW_USER_FAVOURITE;
                 break;
             case "Помощь":
                 botState = BotState.SHOW_HELP_MENU;

@@ -10,6 +10,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 import ru.shemich.letovpoem_bot.botapi.BotState;
 import ru.shemich.letovpoem_bot.botapi.InputMessageHandler;
 import ru.shemich.letovpoem_bot.cache.UserDataCache;
+import ru.shemich.letovpoem_bot.model.UserFavouriteData;
 import ru.shemich.letovpoem_bot.model.UserProfileData;
 import ru.shemich.letovpoem_bot.service.PoemDataService;
 import ru.shemich.letovpoem_bot.service.PredictionService;
@@ -63,6 +64,7 @@ public class FillingProfileHandler implements InputMessageHandler {
         int userId = inputMsg.getFrom().getId();
         long chatId = inputMsg.getChatId();
 
+        UserFavouriteData favouriteData = userDataCache.getUserFavouriteData(userId);
         UserProfileData profileData = userDataCache.getUserProfileData(userId);
         BotState botState = userDataCache.getUsersCurrentBotState(userId);
 
@@ -132,7 +134,18 @@ public class FillingProfileHandler implements InputMessageHandler {
             replyToUser.setParseMode("HTML");
 
         }
+        if (botState.equals(BotState.SHOW_USER_FAVOURITE)) {
+            userDataCache.setUsersCurrentBotState(userId, BotState.SHOW_MAIN_MENU);
+            String profileFilledMessage = messagesService.getReplyText("reply.profileFilled",
+                    profileData.getName(), Emojis.SPARKLES);
+
+            String poemMessage = poemDataService.getPoemData();
+            replyToUser = new SendMessage(chatId, poemMessage);
+            replyToUser.setParseMode("HTML");
+
+        }
         userDataCache.saveUserProfileData(userId, profileData);
+        userDataCache.saveUserFavouriteData(userId, favouriteData);
 
         return replyToUser;
     }

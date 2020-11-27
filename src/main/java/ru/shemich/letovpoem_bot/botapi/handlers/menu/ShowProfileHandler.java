@@ -31,9 +31,9 @@ public class ShowProfileHandler implements InputMessageHandler {
         userDataCache.setUsersCurrentBotState(userId, BotState.SHOW_MAIN_MENU);
         if (profileData != null) {
             userReply = new SendMessage(message.getChatId(),
-                    String.format("%s%n-------------------%n%s", "Данные по вашей анкете:", profileData.toString()));
+                    String.format("%s%n-------------------%n%s", "Ваши избранные стихотворения:", profileData.toString()));
         } else {
-            userReply = new SendMessage(message.getChatId(), "Такой анкеты в БД не существует !");
+            userReply = new SendMessage(message.getChatId(), "Ваших избранных не сущетсвует !");
         }
 
         return userReply;
@@ -41,6 +41,6 @@ public class ShowProfileHandler implements InputMessageHandler {
 
     @Override
     public BotState getHandlerName() {
-        return BotState.SHOW_USER_PROFILE;
+        return BotState.SHOW_USER_FAVOURITE;
     }
 }
