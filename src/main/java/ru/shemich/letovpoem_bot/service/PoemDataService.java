@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * Генерирует стихотворение
+ *
+ */
+
 @Service
 public class PoemDataService {
     private final Random random = new Random();
@@ -44,10 +49,11 @@ public class PoemDataService {
             }
         }
         int a = (int) (Math.random() * arrayList.size());
-        String randomStr = arrayList.get(a);
+        String randomStr = String.format("%s",arrayList.get(a));
 
         scan.close();
         fr.close();
+        //return  messagesService.getReplyText(randomStr);
         return randomStr;
     }
 }

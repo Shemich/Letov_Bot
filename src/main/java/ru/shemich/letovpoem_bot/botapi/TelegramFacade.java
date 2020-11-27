@@ -80,10 +80,10 @@ public class TelegramFacade {
             case "Получить cлучайный стих":
                 botState = BotState.SHOW_RANDOM_POEM;
                 break;
-            case "Моя анкета":
+            case "Добавить в избранное":
                 botState = BotState.SHOW_USER_PROFILE;
                 break;
-            case "Скачать анкету":
+            case "Избранное":
                 letovPoemBot.sendDocument(chatId, "Ваша анкета", getUsersProfile(userId));
                 botState = BotState.SHOW_USER_PROFILE;
                 break;
