@@ -1,6 +1,5 @@
 package ru.shemich.letovpoem_bot.service;
 
-import jdk.internal.loader.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
@@ -8,8 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -29,7 +27,7 @@ public class PoemDataService {
 
     }
 
-    public String getPoemData() throws IOException, URISyntaxException {
+    public String getPoemData() throws IOException {
         //String fileName = "poem.txt";
         File textFile = ResourceUtils.getFile("classpath:" + "static/docs/poem.txt");
         FileReader fr = new FileReader(textFile);
