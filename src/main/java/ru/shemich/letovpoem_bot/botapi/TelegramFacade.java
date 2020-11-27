@@ -74,8 +74,8 @@ public class TelegramFacade {
 
         switch (inputMsg) {
             case "/start":
-                botState = BotState.ASK_DESTINY;
-                letovPoemBot.sendPhoto(chatId, messagesService.getReplyText("reply.hello"), "static/images/wizard_logo.jpg");
+                botState = BotState.ASK_START;
+                letovPoemBot.sendPhoto(chatId, messagesService.getReplyText("reply.hello"), "static/images/letovpoem_logo.jpg");
                 break;
             case "Получить предсказание":
                 botState = BotState.FILLING_PROFILE;

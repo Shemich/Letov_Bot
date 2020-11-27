@@ -4,7 +4,7 @@ package ru.shemich.letovpoem_bot.botapi;
  */
 
 public enum BotState {
-    ASK_DESTINY,
+    ASK_START,
     ASK_NAME,
     ASK_AGE,
     ASK_GENDER,
