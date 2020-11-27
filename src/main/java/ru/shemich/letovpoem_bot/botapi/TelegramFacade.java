@@ -111,12 +111,12 @@ public class TelegramFacade {
 
         //From Destiny choose buttons
         if (buttonQuery.getData().equals("buttonYes")) {
-            callBackAnswer = new SendMessage(chatId, "Как тебя зовут ?");
-            userDataCache.setUsersCurrentBotState(userId, BotState.ASK_AGE);
+            userDataCache.setUsersCurrentBotState(userId, BotState.SHOW_RANDOM_POEM);
+            callBackAnswer = mainMenuService.getMainMenuMessage(chatId, "Воспользуйтесь главным меню");
         } else if (buttonQuery.getData().equals("buttonNo")) {
-            callBackAnswer = sendAnswerCallbackQuery("Возвращайся, когда будешь готов", false, buttonQuery);
+            callBackAnswer = sendAnswerCallbackQuery("Возвращайтесь, когда будете готовы", true, buttonQuery);
         } else if (buttonQuery.getData().equals("buttonIwillThink")) {
-            callBackAnswer = sendAnswerCallbackQuery("Данная кнопка не поддерживается", true, buttonQuery);
+            callBackAnswer = sendAnswerCallbackQuery("Возвращайтесь, когда будете готовы", true, buttonQuery);
         }
 
         //From Gender choose buttons

@@ -23,7 +23,7 @@ public class HelpMenuHandler implements InputMessageHandler {
     @Override
     public SendMessage handle(Message message) {
         return mainMenuService.getMainMenuMessage(message.getChatId(),
-                messagesService.getReplyText("reply.showHelpMenu", Emojis.MAGE));
+                messagesService.getReplyText("reply.showHelpMenu", Emojis.EYE));
     }
 
     @Override
