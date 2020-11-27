@@ -1,12 +1,15 @@
 package ru.shemich.letovpoem_bot.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.util.ResourceUtils;
 
 import java.io.*;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -27,9 +30,19 @@ public class PoemDataService {
     }
 
     public String getPoemData() throws IOException {
-        String textPath = "static/docs/poem.txt";
-        File textFile = ResourceUtils.getFile("classpath:" + textPath);
-        FileReader fr = new FileReader(textFile);
+
+        String data = "";
+        ClassPathResource cpr = new ClassPathResource("static/docs/poem.txt");
+        try {
+            byte[] bdata = FileCopyUtils.copyToByteArray(cpr.getInputStream());
+            data = new String(bdata, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+
+        //String textPath = "static/docs/poem.txt";
+        //File textFile = ResourceUtils.getFile("classpath:" + textPath);
+        FileReader fr = new FileReader(data);
         Scanner scan = new Scanner(fr);
         ArrayList<String> arrayList = new ArrayList<>();
         String text = "* * *";
