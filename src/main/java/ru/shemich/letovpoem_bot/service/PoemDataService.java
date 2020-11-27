@@ -1,10 +1,15 @@
 package ru.shemich.letovpoem_bot.service;
 
+import jdk.internal.loader.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -21,11 +26,13 @@ public class PoemDataService {
 
     public PoemDataService(ReplyMessagesService messagesService) throws FileNotFoundException, IOException {
         this.messagesService = messagesService;
+
     }
 
-    public String getPoemData() throws IOException {
-
-        FileReader fr = new FileReader("static/docs/poem.txt");
+    public String getPoemData() throws IOException, URISyntaxException {
+        //String fileName = "poem.txt";
+        File textFile = ResourceUtils.getFile("classpath:" + "static/docs/poem.txt");
+        FileReader fr = new FileReader(textFile);
         Scanner scan = new Scanner(fr);
         ArrayList<String> arrayList = new ArrayList<>();
         String text = "* * *";
