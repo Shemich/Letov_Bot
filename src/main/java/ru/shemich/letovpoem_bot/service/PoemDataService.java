@@ -25,7 +25,7 @@ public class PoemDataService {
 
     public String getPoemData() throws IOException {
 
-        FileReader fr = new FileReader("D:/CODING/JAVA/Bots/letovpoem_bot/src/main/resources/static/docs/poem.txt");
+        FileReader fr = new FileReader("static/docs/poem.txt");
         Scanner scan = new Scanner(fr);
         ArrayList<String> arrayList = new ArrayList<>();
         String text = "* * *";
