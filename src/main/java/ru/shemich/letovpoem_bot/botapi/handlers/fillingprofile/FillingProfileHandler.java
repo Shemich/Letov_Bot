@@ -1,5 +1,6 @@
 package ru.shemich.letovpoem_bot.botapi.handlers.fillingprofile;
 
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -10,6 +11,7 @@ import ru.shemich.letovpoem_bot.botapi.BotState;
 import ru.shemich.letovpoem_bot.botapi.InputMessageHandler;
 import ru.shemich.letovpoem_bot.cache.UserDataCache;
 import ru.shemich.letovpoem_bot.model.UserProfileData;
+import ru.shemich.letovpoem_bot.service.PoemDataService;
 import ru.shemich.letovpoem_bot.service.PredictionService;
 import ru.shemich.letovpoem_bot.service.ReplyMessagesService;
 import ru.shemich.letovpoem_bot.service.UsersProfileDataService;
@@ -30,13 +32,16 @@ public class FillingProfileHandler implements InputMessageHandler {
     private ReplyMessagesService messagesService;
     private PredictionService predictionService;
     private UsersProfileDataService profileDataService;
+    //new
+    private PoemDataService poemDataService;
 
     public FillingProfileHandler(UserDataCache userDataCache, ReplyMessagesService messagesService,
-                                 PredictionService predictionService, UsersProfileDataService profileDataService) {
+                                 PredictionService predictionService, UsersProfileDataService profileDataService, PoemDataService poemDataService) {
         this.userDataCache = userDataCache;
         this.messagesService = messagesService;
         this.predictionService = predictionService;
         this.profileDataService = profileDataService;
+        this.poemDataService = poemDataService;
     }
 
     @Override
@@ -52,6 +57,7 @@ public class FillingProfileHandler implements InputMessageHandler {
         return BotState.FILLING_PROFILE;
     }
 
+    @SneakyThrows
     private SendMessage processUsersInput(Message inputMsg) {
         String usersAnswer = inputMsg.getText();
         int userId = inputMsg.getFrom().getId();
@@ -109,7 +115,8 @@ public class FillingProfileHandler implements InputMessageHandler {
 
             profileDataService.saveUserProfileData(profileData);
 
-            userDataCache.setUsersCurrentBotState(userId, BotState.SHOW_MAIN_MENU);
+            //userDataCache.setUsersCurrentBotState(userId, BotState.SHOW_MAIN_MENU);
+            userDataCache.setUsersCurrentBotState(userId, BotState.SHOW_RANDOM_POEM);
 
             String profileFilledMessage = messagesService.getReplyText("reply.profileFilled",
                     profileData.getName(), Emojis.SPARKLES);
@@ -118,7 +125,13 @@ public class FillingProfileHandler implements InputMessageHandler {
             replyToUser = new SendMessage(chatId, String.format("%s%n%n%s %s", profileFilledMessage, Emojis.SCROLL, predictionMessage));
             replyToUser.setParseMode("HTML");
         }
+        if (botState.equals(BotState.SHOW_RANDOM_POEM)) {
+            userDataCache.setUsersCurrentBotState(userId, BotState.SHOW_MAIN_MENU);
+           String poemMessage = poemDataService.getPoemData();
+           replyToUser = new SendMessage(chatId, poemMessage);
+            replyToUser.setParseMode("HTML");
 
+        }
         userDataCache.saveUserProfileData(userId, profileData);
 
         return replyToUser;

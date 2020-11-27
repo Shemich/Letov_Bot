@@ -43,6 +43,7 @@ public class BotStateContext {
             case ASK_COLOR:
             case FILLING_PROFILE:
             case PROFILE_FILLED:
+            case SHOW_RANDOM_POEM:
                 return true;
             default:
                 return false;

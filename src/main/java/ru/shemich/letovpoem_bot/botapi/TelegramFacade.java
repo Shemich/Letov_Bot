@@ -74,16 +74,16 @@ public class TelegramFacade {
 
         switch (inputMsg) {
             case "/start":
-                botState = BotState.ASK_DESTINY;
-                letovPoemBot.sendPhoto(chatId, messagesService.getReplyText("reply.hello"), "static/images/wizard_logo.jpg");
+                botState = BotState.ASK_START;
+                letovPoemBot.sendPhoto(chatId, messagesService.getReplyText("reply.hello"), "static/images/letovpoem_logo.jpg");
                 break;
-            case "Получить предсказание":
-                botState = BotState.FILLING_PROFILE;
+            case "Получить cлучайный стих":
+                botState = BotState.SHOW_RANDOM_POEM;
                 break;
-            case "Моя анкета":
+            case "Добавить в избранное":
                 botState = BotState.SHOW_USER_PROFILE;
                 break;
-            case "Скачать анкету":
+            case "Избранное":
                 letovPoemBot.sendDocument(chatId, "Ваша анкета", getUsersProfile(userId));
                 botState = BotState.SHOW_USER_PROFILE;
                 break;
