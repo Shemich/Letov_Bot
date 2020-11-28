@@ -100,7 +100,7 @@ public class TelegramFacade {
                 //letovPoemBot.sendDocument(chatId, "Ваше избранное", getUsersProfile(userId));
                 botState = BotState.SHOW_USER_FAVOURITE;
                 break;*/
-            case "Помощь":
+            case "О боте":
                 botState = BotState.SHOW_HELP_MENU;
                 break;
             default:
