@@ -63,7 +63,7 @@ public class PoemDataService {
 
             if (s.contains("* * *")) { //ищем звезды для разделения текста. как конец стиха
                 text = text + "\n" + s;
-                arrayList.add(text);//добавялем весь текст до звезд + свми звезды
+                arrayList.add(text);//добавялем весь текст до звезд + сами звезды
                 text = "";//обнуляем буфер текста
             } else {
                 text = text + "\n" + s;
