@@ -70,7 +70,7 @@ public class LetovPoemBot extends TelegramWebhookBot {
     @SneakyThrows
     public void sendPhoto(long chatId, String imageCaption) {
         try {
-            ClassPathResource classPathResource = new ClassPathResource("static/images/letovpoem_logo.jpg");
+            /*ClassPathResource classPathResource = new ClassPathResource("static/images/letovpoem_logo.jpg");
 
             InputStream inputStream = classPathResource.getInputStream();
             File imageFile = File.createTempFile("imagePoem", ".txt");
@@ -79,12 +79,13 @@ public class LetovPoemBot extends TelegramWebhookBot {
             } finally {
                 IOUtils.closeQuietly(inputStream);
             }
-            /*File image = ResourceUtils.getFile("classpath:" + imagePath);*/
-            SendPhoto sendPhoto = new SendPhoto().setPhoto(imageFile);
+            //File image = ResourceUtils.getFile("classpath:" + imagePath);
+            */
+            SendPhoto sendPhoto = new SendPhoto().setPhoto("https://sun9-31.userapi.com/impg/8eVemjs8FVitercvS8WvJhMqQb8w-68QCjqghA/CKomx-f5bOU.jpg?size=620x620&quality=96&sign=b0614ee5521d67373f86707315680169&type=album");
             sendPhoto.setChatId(chatId);
             sendPhoto.setCaption(imageCaption);
             execute(sendPhoto);
-        } catch (TelegramApiRequestException e) {
+        } catch (Exception e) {
             //e.printStackTrace();
             System.out.println("!!!ERROR!!! " + e);
         }
