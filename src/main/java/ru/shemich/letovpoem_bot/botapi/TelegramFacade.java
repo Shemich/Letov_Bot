@@ -90,7 +90,7 @@ public class TelegramFacade {
             case "Получить cлучайный стих":
                 botState = BotState.SHOW_RANDOM_POEM;
                 break;
-            case "/get@LetovPoem_bot":
+            case "/get":
                 botState = BotState.SHOW_RANDOM_POEM;
                 break;
 
@@ -104,7 +104,7 @@ public class TelegramFacade {
                 //letovPoemBot.sendDocument(chatId, "Ваше избранное", getUsersProfile(userId));
                 botState = BotState.SHOW_USER_FAVOURITE;
                 break;*/
-            case "/about@LetovPoem_bot":
+            case "/about":
                 botState = BotState.SHOW_HELP_MENU;
                 break;
             case "О боте":
