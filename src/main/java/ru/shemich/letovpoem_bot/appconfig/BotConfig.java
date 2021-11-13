@@ -23,12 +23,7 @@ import ru.shemich.letovpoem_bot.botapi.TelegramFacade;
 public class BotConfig {
     private String webHookPath;
     private String botUserName;
-    @Value("${botToken}")
     private String botToken;
-    @Autowired
-    private Environment environment;
-    private String herokuPath;
-
 
 
     @Bean
@@ -40,8 +35,6 @@ public class BotConfig {
         myWizardTelegramBot.setBotUserName(botUserName);
         myWizardTelegramBot.setBotToken(botToken);
         myWizardTelegramBot.setWebHookPath(webHookPath);
-        System.out.println(environment.getProperty("botToken"));
-        System.out.println(herokuPath);
         return myWizardTelegramBot;
     }
 
