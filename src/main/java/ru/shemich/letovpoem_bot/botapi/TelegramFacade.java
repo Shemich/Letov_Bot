@@ -85,11 +85,15 @@ public class TelegramFacade {
         switch (inputMsg) {
             case "/start":
                 botState = BotState.ASK_START;
-                letovPoemBot.sendPhoto(chatId, messagesService.getReplyText("reply.hello"), "static/images/letovpoem_logo.jpg");
+                letovPoemBot.sendPhoto(chatId, messagesService.getReplyText("reply.hello"));
                 break;
             case "Получить cлучайный стих":
                 botState = BotState.SHOW_RANDOM_POEM;
                 break;
+            case "/get":
+                botState = BotState.SHOW_RANDOM_POEM;
+                break;
+
            /* case "Добавить в избранное":
                 botState = BotState.ADD_TO_FAVOURITE;
                 *//*UserFavouriteData userFavouriteData = userDataCache.getUserFavouriteData(userId);
@@ -100,7 +104,10 @@ public class TelegramFacade {
                 //letovPoemBot.sendDocument(chatId, "Ваше избранное", getUsersProfile(userId));
                 botState = BotState.SHOW_USER_FAVOURITE;
                 break;*/
-            case "Помощь":
+            case "/about":
+                botState = BotState.SHOW_HELP_MENU;
+                break;
+            case "О боте":
                 botState = BotState.SHOW_HELP_MENU;
                 break;
             default:
@@ -119,13 +126,13 @@ public class TelegramFacade {
     private BotApiMethod<?> processCallbackQuery(CallbackQuery buttonQuery) {
         final long chatId = buttonQuery.getMessage().getChatId();
         final int userId = buttonQuery.getFrom().getId();
-        BotApiMethod<?> callBackAnswer = mainMenuService.getMainMenuMessage(chatId, "Воспользуйтесь главным меню");
+        BotApiMethod<?> callBackAnswer = mainMenuService.getMainMenuMessage(chatId, "Воспользуйтесь главным меню или введите /get");
 
 
         //From Destiny choose buttons
         if (buttonQuery.getData().equals("buttonYes")) {
             userDataCache.setUsersCurrentBotState(userId, BotState.SHOW_RANDOM_POEM);
-            callBackAnswer = mainMenuService.getMainMenuMessage(chatId, "Воспользуйтесь главным меню");
+            callBackAnswer = mainMenuService.getMainMenuMessage(chatId, "Воспользуйтесь главным меню или введите /get");
         } else if (buttonQuery.getData().equals("buttonNo")) {
             callBackAnswer = sendAnswerCallbackQuery("Возвращайтесь, когда будете готовы", true, buttonQuery);
         } else if (buttonQuery.getData().equals("buttonIwillThink")) {

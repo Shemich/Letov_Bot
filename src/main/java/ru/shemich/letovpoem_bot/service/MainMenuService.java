@@ -39,7 +39,7 @@ public class MainMenuService {
         row1.add(new KeyboardButton("Получить cлучайный стих"));
         /*row2.add(new KeyboardButton("Добавить в избранное"));
         row2.add(new KeyboardButton("Избранное"));*/
-        row3.add(new KeyboardButton("Помощь"));
+        row3.add(new KeyboardButton("О боте"));
         keyboard.add(row1);
         keyboard.add(row2);
         keyboard.add(row3);

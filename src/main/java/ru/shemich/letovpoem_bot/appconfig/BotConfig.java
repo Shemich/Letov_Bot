@@ -2,11 +2,14 @@ package ru.shemich.letovpoem_bot.appconfig;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.core.env.Environment;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.meta.ApiContext;
 import ru.shemich.letovpoem_bot.LetovPoemBot;
@@ -22,6 +25,7 @@ public class BotConfig {
     private String botUserName;
     private String botToken;
 
+
     @Bean
     public LetovPoemBot myWizardTelegramBot(TelegramFacade telegramFacade) {
         DefaultBotOptions options = ApiContext
@@ -31,7 +35,6 @@ public class BotConfig {
         myWizardTelegramBot.setBotUserName(botUserName);
         myWizardTelegramBot.setBotToken(botToken);
         myWizardTelegramBot.setWebHookPath(webHookPath);
-
         return myWizardTelegramBot;
     }
 
