@@ -69,7 +69,7 @@ Next step, run SpringBoot main method.
 
 
 ## License
-This project is Apache License 2.0 - see the [LICENSE](LICENSE) file for details
+This project is MIT License - see the [LICENSE](LICENSE) file for details
 
 # Contributions
 Feel free to suggest new features via [github issue](https://github.com/Shemich/Letov_bot/issues/new).
